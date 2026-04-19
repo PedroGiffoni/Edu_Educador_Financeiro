@@ -1,5 +1,9 @@
-📘 README — EDU: Educador Financeiro Inteligente
+📘 README 
+
+— EDU: Educador Financeiro Inteligente
+
 💡 Sobre o Projeto
+
 O Edu é um agente de IA focado em educação financeira, criado para explicar conceitos de forma simples, personalizada e usando dados reais do usuário como exemplos.
 Ele também consulta cotações reais (dólar, euro, bitcoin etc.) através da AwesomeAPI.
 
