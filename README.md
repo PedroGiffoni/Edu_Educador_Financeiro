@@ -1,6 +1,6 @@
 📘 README 
 
-— EDU: Educador Financeiro Inteligente
+## — EDU: Educador Financeiro Inteligente
 
 💡 Sobre o Projeto
 
@@ -9,7 +9,7 @@ Ele também consulta cotações reais (dólar, euro, bitcoin etc.) através da A
 
 O objetivo do Edu não é recomendar investimentos, mas ensinar, contextualizar e ajudar o usuário a entender melhor suas próprias finanças.
 
-🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 Python 3.10+
 
 Streamlit (interface)
@@ -24,7 +24,7 @@ dotenv (variáveis de ambiente)
 
 JSON/CSV (base de conhecimento)
 
-🧠 Como o Edu Funciona
+## 🧠 Como o Edu Funciona
 O Edu recebe:
 
 Perfil do investidor
@@ -49,7 +49,7 @@ Monta um prompt completo com todos os dados
 
 Gera uma resposta clara, simples e personalizada
 
-🔐 Regras de Segurança e Comportamento
+## 🔐 Regras de Segurança e Comportamento
 O Edu foi projetado para ser seguro e evitar alucinações:
 
 Não inventa nomes
@@ -68,7 +68,7 @@ Usa cotações reais quando disponíveis
 
 Se a API cair, responde de forma amigável (tratamento de erro 429/503)
 
-📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 '''
 📦 edu-financeiro
@@ -86,7 +86,7 @@ Se a API cair, responde de forma amigável (tratamento de erro 429/503)
 ┣ 05-pitch.md
 ┗ README.md
 '''
-▶️ Como Rodar o Projeto
+## ▶️ Como Rodar o Projeto
 
 1. Instale as dependências
 
@@ -102,7 +102,7 @@ GEMINI_API_KEY=coloque_sua_chave_aqui
 streamlit run src/app.py
 '''
 
-💸 Funcionalidades Principais
+## 💸 Funcionalidades Principais
 ✔ Explicação de conceitos financeiros
 Ex.: CDI, Selic, FII, renda fixa, risco, câmbio.
 
@@ -120,7 +120,7 @@ Se a API do Gemini estiver indisponível, o Edu responde:
 ✔ Linguagem simples e direta
 Sem jargões, sem enrolação.
 
-🧪 Avaliação e Métricas
+## 🧪 Avaliação e Métricas
 O projeto inclui um arquivo 04-metricas.md com:
 
 Métricas de assertividade, segurança e coerência
@@ -131,7 +131,7 @@ Formulário de feedback
 
 Espaço para registrar resultados
 
-🎤 Pitch do Projeto
+## 🎤 Pitch do Projeto
 O arquivo 05-pitch.md contém:
 
 Estrutura do pitch de 3 minutos
@@ -142,7 +142,7 @@ Sugestões de demo
 
 Checklist final
 
-🛠 Tratamento de Erros do Gemini
+## 🛠 Tratamento de Erros do Gemini
 O app inclui proteção contra:
 
 429 (quota excedida)
@@ -155,8 +155,8 @@ Falhas de rede
 
 Quando isso acontece, o Edu responde de forma amigável e continua funcionando.
 
-📜 Licença
+## 📜 Licença
 Este projeto é de uso educacional e pode ser adaptado livremente.
 
-🙋‍♂️ Autor
+## 🙋‍♂️ Autor
 Projeto desenvolvido por Pedro Giffoni, como parte do laboratório da DIO — BIA do Futuro.
