@@ -20,12 +20,23 @@ MODEL_NAME = "gemini-2.5-flash"
 
 
 # 3. Função para carregar base de conhecimento
-@st.cache_data
+
 def carregar_bases():
     base_dir = os.path.join(os.path.dirname(__file__), "..", "data")
 
     perfil_path = os.path.join(base_dir, "perfil_investidor.json")
-    transacoes_path = os.path.join(base_dir, "transacoes.csv")
+
+    transacoes_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "..",
+            "FinTrack",
+            "dados",
+            "transacoes.csv"
+        )
+    )
+
     historico_path = os.path.join(base_dir, "historico_atendimento.csv")
     produtos_path = os.path.join(base_dir, "produtos_financeiros.json")
 
@@ -39,7 +50,23 @@ def carregar_bases():
             perfil = json.load(f)
 
     if os.path.exists(transacoes_path):
-        transacoes = pd.read_csv(transacoes_path, sep=",")
+        transacoes = pd.read_csv(
+            transacoes_path,
+            sep=";",
+            names=[
+                "id",
+                "descricao",
+                "valor",
+                "tipo",
+                "categoria",
+                "data",
+                "mensal",
+                "dia"
+            ],
+            encoding="utf-8"
+        )
+    else:
+        st.warning(f"Arquivo de transações do FinTrack não encontrado em: {transacoes_path}")
 
     if os.path.exists(historico_path):
         historico = pd.read_csv(historico_path, sep=",")
@@ -128,22 +155,36 @@ Pergunta do usuário:
 
 # 6. Função para chamar o Gemini
 def chamar_gemini(prompt):
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt
-    )
-    texto = response.text
+    try:
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt
+        )
 
-    # Remove apenas saudações artificiais
-    texto = re.sub(r"^(Olá|Oi|Saudações)[^a-zA-Z]*", "", texto, flags=re.IGNORECASE)
+        texto = response.text
+        texto = re.sub(r"^(Olá|Oi|Saudações)[^a-zA-Z]*", "", texto, flags=re.IGNORECASE)
 
-    return texto.strip()
+        return texto.strip()
+
+    except Exception as e:
+        erro = str(e)
+
+        if "503" in erro or "UNAVAILABLE" in erro:
+            return "O Edu está temporariamente indisponível porque o modelo de IA está com alta demanda. Tente novamente em alguns instantes."
+
+        if "429" in erro:
+            return "O limite de uso da API foi atingido no momento. Tente novamente mais tarde."
+
+        if "403" in erro:
+            return "Houve um problema com a chave da API Gemini. Verifique se a chave está válida no arquivo .env."
+
+        return "Não consegui consultar a IA agora. Erro: " + erro
 
 # 7. Interface Streamlit
 def main():
     st.set_page_config(page_title="Edu - Educador Financeiro (Gemini)", page_icon="💸")
     st.title("💸 Edu - Educador Financeiro Inteligente (versão Gemini)")
-    st.write("Agente de IA que ensina finanças pessoais e consulta preços reais quando necessário.")
+    st.write("Agente de IA que ensina finanças pessoais baseado nos seus dados reais e em informações de produtos financeiros.")
 
     pergunta = st.text_area("Digite sua pergunta:", height=100)
 
